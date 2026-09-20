@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import { withBase } from '../../utils/paths';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+const { project } = Astro.props;
+const { Content } = await render(project);
+const hasRepo = project.data.repo !== 'PLACEHOLDER' && project.data.repo.startsWith('http');
+---
+<Layout title={`${project.data.title} | Muhammad Ilyas`} description={project.data.description}>
+  <Header />
+  <main id="main" class="section-shell py-20 sm:py-28">
+    <a class="eyebrow hover:underline" href={withBase('#projects')}>← Back to projects</a>
+    <article class="mt-12 max-w-4xl">
+      <p class="eyebrow">Project / {project.slug}</p>
+      <h1 class="display mt-5 text-5xl font-bold leading-none sm:text-7xl">{project.data.title}</h1>
+      <p class="mt-7 max-w-2xl text-xl muted">{project.data.description}</p>
+      <ul class="mt-7 flex flex-wrap gap-2">{project.data.stack.map((item) => <li class="border border-line px-3 py-1 text-sm text-mute">{item}</li>)}</ul>
+      {hasRepo && <a class="mt-8 inline-flex bg-accent px-5 py-3 font-bold text-deep" href={project.data.repo} target="_blank" rel="noreferrer">View code ↗</a>}
+      <div class="prose mt-20 max-w-2xl border-t border-line pt-8 text-lg muted"><Content /></div>
+    </article>
+  </main>
+</Layout>

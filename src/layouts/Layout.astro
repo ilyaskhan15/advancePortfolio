@@ -1,0 +1,62 @@
+---
+import { site } from '../data/site';
+import { withBase } from '../utils/paths';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = `${site.name} | ${site.title}`, description = site.description } = Astro.props;
+const canonical = new URL(withBase(Astro.url.pathname), Astro.site);
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+    <link rel="manifest" href={withBase('site.webmanifest')} />
+    <link
+      rel="preload"
+      href={withBase('fonts/space-grotesk-latin-wght-normal.woff2')}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(withBase('og-image.png'), Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(withBase('og-image.png'), Astro.site)} />
+    <script is:inline>
+      try {
+        const saved = localStorage.getItem('theme');
+        const preferred = window.matchMedia('(prefers-color-scheme: light)').matches
+          ? 'light'
+          : 'dark';
+        document.documentElement.dataset.theme = saved || preferred;
+      } catch {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    </script>
+    <slot name="head" />
+  </head>
+  <body>
+    <a
+      class="sr-only focus:not-sr-only fixed left-4 top-4 z-50 bg-accent px-4 py-2 text-deep"
+      href="#main">Skip to content</a
+    >
+    <slot />
+    <script is:inline src={withBase('scripts/site.js')}></script>
+  </body>
+</html>

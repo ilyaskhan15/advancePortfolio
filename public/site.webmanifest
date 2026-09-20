@@ -1,0 +1,9 @@
+{
+  "name": "Muhammad Ilyas Portfolio",
+  "short_name": "Muhammad Ilyas",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0c1715",
+  "theme_color": "#e5ff6f",
+  "icons": []
+}
