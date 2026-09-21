@@ -14,7 +14,7 @@
 }
 
 :root { color-scheme: dark; }
-:root[data-theme='light'] { color-scheme: light; --color-ink: #10201b; --color-mute: #52645c; --color-panel: #f5f8f3; --color-line: #cbd8cf; --color-deep: #f2f6f1; }
+:root[data-theme='light'] { color-scheme: light; --color-ink: #10201b; --color-mute: #52645c; --color-panel: #f5f8f3; --color-line: #cbd8cf; --color-deep: #f2f6f1; --color-accent: #4f6f1f; }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
