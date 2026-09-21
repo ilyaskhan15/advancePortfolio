@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 const repository = process.env.GITHUB_REPOSITORY?.split('/').at(-1);
-const defaultSite = 'https://muhammadilyas.me';
+const defaultSite = 'https://ilyaskhan.me';
 const site = process.env.PUBLIC_SITE ?? defaultSite;
 const base = process.env.PUBLIC_BASE ?? (site === defaultSite ? '/' : repository && !repository.endsWith('.github.io') ? `/${repository}` : '/');
 
